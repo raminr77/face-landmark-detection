@@ -7,8 +7,8 @@ import Webcam from "react-webcam";
 import { runDetector } from "./utils/detector";
 
 const inputResolution = {
-  width: 1080,
-  height: 900,
+  width: 500,
+  height: 500,
 };
 const videoConstraints = {
   width: inputResolution.width,
@@ -27,13 +27,14 @@ function App() {
     setLoaded(true);
   };
   return (
-    <div>
+    <div className="container">
+      {!loaded && <h3>Loading...</h3>}
       <Webcam
+        onLoadedData={handleVideoLoad}
         width={inputResolution.width}
         height={inputResolution.height}
-        style={{ visibility: "hidden", position: "absolute" }}
         videoConstraints={videoConstraints}
-        onLoadedData={handleVideoLoad}
+        style={{ position: "absolute", visibility: 'hidden' }}
       />
       <canvas
         ref={canvasRef}
@@ -41,7 +42,6 @@ function App() {
         height={inputResolution.height}
         style={{ position: "absolute" }}
       />
-      {loaded ? <></> : <header>Loading...</header>}
     </div>
   );
 }
